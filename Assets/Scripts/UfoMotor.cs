@@ -45,18 +45,17 @@ public class UfoMotor : MonoBehaviour {
         }
 
         if (Input.GetKey(KeyCode.A)) {
-            transform.Rotate(Vector3.up, -turnSpeed);
+            transform.Rotate(transform.up, -turnSpeed);
         }
 
         if (Input.GetKey(KeyCode.D)) {
-            transform.Rotate(Vector3.up, turnSpeed);
+            transform.Rotate(transform.up, turnSpeed);
         }
 
-        float a = transform.rotation.z;
+        float a = transform.rotation.eulerAngles.z;
         if(a > 180) {
             a -= 360;
         }
-        Debug.Log(a);
-        transform.Rotate(Vector3.up, -1 * (a * turnTiltFactor));
+        transform.Rotate(transform.up, -1 * (a * turnTiltFactor));
     }
 }
