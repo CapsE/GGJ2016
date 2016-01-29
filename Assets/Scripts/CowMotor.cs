@@ -56,4 +56,8 @@ public class CowMotor : MonoBehaviour
         heading = Random.Range(floor, ceil);
         targetRotation = new Vector3(0, heading, 0);
     }
+
+    public void Abduct() {
+        Debug.Log("Muuuuh!!! :O");
+    }
 }

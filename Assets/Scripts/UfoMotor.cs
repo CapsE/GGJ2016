@@ -12,6 +12,7 @@ public class UfoMotor : MonoBehaviour {
 
     public float bonusGravity = 1;
     public GameObject explosion;
+    public GameObject beam;
 
     private Rigidbody rb;
     private float currentForce;
@@ -51,6 +52,13 @@ public class UfoMotor : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.D)) {
             transform.Rotate(transform.up, turnSpeed);
+        }
+
+        if (Input.GetMouseButtonDown(0)) {
+            beam.SetActive(true);
+        }
+        if (Input.GetMouseButtonUp(0)) {
+            beam.SetActive(false);
         }
 
         float a = transform.rotation.eulerAngles.z;
