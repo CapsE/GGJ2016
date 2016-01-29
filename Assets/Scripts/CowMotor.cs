@@ -72,5 +72,10 @@ public class CowMotor : MonoBehaviour
         moving = false;
         abducting = true;
         transform.parent = beam;
+        gameObject.GetComponent<BoxCollider>().isTrigger = true;
+    }
+
+    void OnTriggerEnter(Collider collider) {
+        Destroy(gameObject);
     }
 }
