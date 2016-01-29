@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class Timer : MonoBehaviour {
-    float timeLeft = 120.0f;
+    public float timeLeft = 120.0f;
     public Text text;
 
     // Use this for initialization
