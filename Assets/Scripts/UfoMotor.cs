@@ -7,20 +7,23 @@ public class UfoMotor : MonoBehaviour {
     public float upMax = 15.81f;
     public float upMin = -3.81f;
     public float mouseSpeed = 1;
-    public float turnSpeed = 0.1f;
+    public float turnSpeed = 0.75f;
+    public float turnTiltFactor = 0.1f;
+
+    public float bonusGravity = 1;
 
     private Rigidbody rb;
-    public float currentForce;
+    private float currentForce;
 
 	// Use this for initialization
 	void Start () {
         rb = gameObject.GetComponent<Rigidbody>();
-        currentForce = upForce;
+        currentForce = upForce + bonusGravity;
 	}
 	
 	void FixedUpdate () {
         rb.AddForce(transform.up * currentForce);
-
+        rb.AddForce(-1 * Vector3.up * bonusGravity);
     }
 
     void Update() {
@@ -38,7 +41,7 @@ public class UfoMotor : MonoBehaviour {
         }
 
         if (!Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W)) {
-            currentForce = upForce;
+            currentForce = upForce + bonusGravity; 
         }
 
         if (Input.GetKey(KeyCode.A)) {
@@ -48,5 +51,12 @@ public class UfoMotor : MonoBehaviour {
         if (Input.GetKey(KeyCode.D)) {
             transform.Rotate(Vector3.up, turnSpeed);
         }
+
+        float a = transform.rotation.z;
+        if(a > 180) {
+            a -= 360;
+        }
+        Debug.Log(a);
+        transform.Rotate(Vector3.up, -1 * (a * turnTiltFactor));
     }
 }
