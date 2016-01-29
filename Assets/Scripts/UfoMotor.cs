@@ -11,17 +11,18 @@ public class UfoMotor : MonoBehaviour {
     public float turnTiltFactor = 0.1f;
 
     public float bonusGravity = 1;
+    public GameObject explosion;
 
     private Rigidbody rb;
     private float currentForce;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
         rb = gameObject.GetComponent<Rigidbody>();
         currentForce = upForce + bonusGravity;
-	}
-	
-	void FixedUpdate () {
+    }
+
+    void FixedUpdate() {
         rb.AddForce(transform.up * currentForce);
         rb.AddForce(-1 * Vector3.up * bonusGravity);
     }
@@ -41,7 +42,7 @@ public class UfoMotor : MonoBehaviour {
         }
 
         if (!Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W)) {
-            currentForce = upForce + bonusGravity; 
+            currentForce = upForce + bonusGravity;
         }
 
         if (Input.GetKey(KeyCode.A)) {
@@ -53,9 +54,17 @@ public class UfoMotor : MonoBehaviour {
         }
 
         float a = transform.rotation.eulerAngles.z;
-        if(a > 180) {
+        if (a > 180) {
             a -= 360;
         }
         transform.Rotate(transform.up, -1 * (a * turnTiltFactor));
+    }
+
+    void OnCollisionEnter(Collision collision) {
+        if (collision.impulse.magnitude > 1) {
+            transform.FindChild("Main Camera").parent = null;
+            Destroy(gameObject);
+            Instantiate(explosion, transform.position, Quaternion.identity);
+        }
     }
 }
