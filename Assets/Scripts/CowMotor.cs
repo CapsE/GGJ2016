@@ -7,9 +7,9 @@ using System.Collections;
 [RequireComponent(typeof(CharacterController))]
 public class CowMotor : MonoBehaviour
 {
-    public float speed = 2;
+    public float speed = 5;
     public float directionChangeInterval = 1;
-    public float maxHeadingChange = 360;
+    public float maxHeadingChange = 30;
 
     CharacterController controller;
     float heading;
