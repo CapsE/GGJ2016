@@ -13,9 +13,8 @@ public class BeamBehaviour : MonoBehaviour {
 	
 	}
 
-    void OnTriggerEnter (Collider collider) {
-        CowMotor cm = collider.gameObject.GetComponent<CowMotor>();
-        Debug.Log("Trigger");
+    void OnTriggerEnter(Collider collider) {
+        CowMotor cm = collider.gameObject.GetComponent<CowMotor>();   
         if (cm) {
             cm.Abduct();
         }
