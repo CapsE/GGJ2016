@@ -10,10 +10,13 @@ public class CowMotor : MonoBehaviour
     public float speed = 5;
     public float directionChangeInterval = 1;
     public float maxHeadingChange = 30;
+    public float abductSpeed = 0.25f;
 
     CharacterController controller;
     float heading;
     Vector3 targetRotation;
+    private bool moving = true;
+    private bool abducting = false;
 
     void Awake()
     {
@@ -28,9 +31,16 @@ public class CowMotor : MonoBehaviour
 
     void Update()
     {
-        transform.eulerAngles = Vector3.Slerp(transform.eulerAngles, targetRotation, Time.deltaTime * directionChangeInterval);
-        var forward = transform.TransformDirection(Vector3.forward);
-        controller.SimpleMove(forward * speed);
+        if (moving) {
+            transform.eulerAngles = Vector3.Slerp(transform.eulerAngles, targetRotation, Time.deltaTime * directionChangeInterval);
+            var forward = transform.TransformDirection(Vector3.forward);
+            controller.SimpleMove(forward * speed);
+        }
+
+        if (abducting) {
+            transform.position += Vector3.up * abductSpeed;
+        }
+        
     }
 
     /// <summary>
@@ -39,7 +49,7 @@ public class CowMotor : MonoBehaviour
     /// </summary>
     IEnumerator NewHeading()
     {
-        while (true)
+        while (moving)
         {
             NewHeadingRoutine();
             yield return new WaitForSeconds(directionChangeInterval);
@@ -57,7 +67,10 @@ public class CowMotor : MonoBehaviour
         targetRotation = new Vector3(0, heading, 0);
     }
 
-    public void Abduct() {
-        Debug.Log("Muuuuh!!! :O");
+    public void Abduct(Transform beam) {
+        Debug.Log("Abducting Cow");
+        moving = false;
+        abducting = true;
+        transform.parent = beam;
     }
 }

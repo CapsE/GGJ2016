@@ -14,13 +14,18 @@ public class UfoMotor : MonoBehaviour {
     public GameObject explosion;
     public GameObject beam;
 
+    public GameObject mainCam;
+    public GameObject beamCam;
+
     private Rigidbody rb;
     private float currentForce;
+
 
     // Use this for initialization
     void Start() {
         rb = gameObject.GetComponent<Rigidbody>();
         currentForce = upForce + bonusGravity;
+
     }
 
     void FixedUpdate() {
@@ -56,9 +61,13 @@ public class UfoMotor : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0)) {
             beam.SetActive(true);
+            beamCam.SetActive(true);
+            mainCam.SetActive(false);
         }
         if (Input.GetMouseButtonUp(0)) {
             beam.SetActive(false);
+            mainCam.SetActive(true);
+            beamCam.SetActive(false);
         }
 
         float a = transform.rotation.eulerAngles.z;
@@ -69,8 +78,14 @@ public class UfoMotor : MonoBehaviour {
     }
 
     void OnCollisionEnter(Collision collision) {
+        if (collision.collider.gameObject.GetComponent<CowMotor>()) {
+            Destroy(collision.collider.gameObject);
+            return;
+        }
+
         if (collision.impulse.magnitude > 1) {
-            transform.FindChild("Main Camera").parent = null;
+            mainCam.transform.parent = null;
+            mainCam.SetActive(true);
             Destroy(gameObject);
             Instantiate(explosion, transform.position, Quaternion.identity);
         }
