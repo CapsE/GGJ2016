@@ -6,10 +6,28 @@ public class PointCounter : MonoBehaviour {
 
     public static int points = 0;
     public Text pointText;
+
+    static PointCounter instance;
+
+    private PointCounter() {
+        
+        CowMotor.AbductedEvent += madePoint;
+    }
+
+    public static PointCounter getInstance() {
+        if(instance == null) {
+            instance = new PointCounter();
+        }
+        instance.pointText = GameObject.Find("PointText").GetComponent<Text>();
+        return instance;
+    }
+
     // Use this for initialization
     void Start()
     {
         CowMotor.AbductedEvent += madePoint;
+        points = 0;
+        Debug.Log(gameObject);
     }
 
     // Update is called once per frame
@@ -22,7 +40,10 @@ public class PointCounter : MonoBehaviour {
     {
         CowCreator.cowCount--;
         points++;
-        pointText.text = "Points: "+points;
-        Debug.Log("Made a point");
+        if(pointText == null) {
+           
+            pointText = GameObject.Find("PointText").GetComponent<Text>();
+        }
+        pointText.text = "Points: " + points;
     }
 }

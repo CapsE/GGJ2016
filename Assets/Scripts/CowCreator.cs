@@ -15,7 +15,6 @@ public class CowCreator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (CowCreator.cowCount < cowMax) {
-            Debug.Log("Spawned a cow");
             cowCount++;
             Instantiate(cow, new Vector3(218, 0, 233), Quaternion.identity);
         }

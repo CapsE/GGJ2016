@@ -4,7 +4,7 @@
 4:Lars:17:
 5:Wow:16:
 6:yeah high score:10:
-7:Cedric:7:
-8:Yay:4:
-9:abc:3:
-10:jeah:2
+7:Lars:8:
+8:Cedric:7:
+9:Lars:7:
+10:Yay:4
