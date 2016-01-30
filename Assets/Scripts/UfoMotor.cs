@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class UfoMotor : MonoBehaviour {
 
@@ -86,8 +87,18 @@ public class UfoMotor : MonoBehaviour {
         if (collision.impulse.magnitude > crashSpeed) {
             mainCam.transform.parent = null;
             mainCam.SetActive(true);
-            Destroy(gameObject);
             Instantiate(explosion, transform.position, Quaternion.identity);
+            StartCoroutine(ChangeScene());
+            Invoke("ChangeScene", 2.0f);
         }
     }
+
+      IEnumerator ChangeScene()
+      {
+        yield return new WaitForSeconds(1);
+        Destroy(gameObject);
+        SceneManager.LoadScene(2);
+      } 
+
+  
 }
