@@ -77,7 +77,7 @@ public class UfoMotor : MonoBehaviour {
             grow = false;
             beam.GetComponent<AudioSource>().Stop();
             //mainCam.GetComponent<CameraSwitch>().Normal();
-            beam.SetActive(false);
+            StartCoroutine(retractBeam());
             //mainCam.SetActive(true);
             //beamCam.SetActive(false);
         }
@@ -127,6 +127,12 @@ public class UfoMotor : MonoBehaviour {
     {
         grow = true;
     }
-    
+
+    IEnumerator retractBeam()
+    {
+        yield return new WaitForSeconds(1);
+        beam.SetActive(false);
+    }
+
 
 }
