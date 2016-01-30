@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using System.Text;
 using UnityEngine.UI;
+using System;
 
 public class HighScore : MonoBehaviour {
 
@@ -46,10 +47,41 @@ public class HighScore : MonoBehaviour {
             }
         }
 
+        string kurzBuf1= "";
+        string pointBuf1 = "";
+        string kurzBuf2 = "";
+        string pointBuf2 = "";
+        int switcharoo= 0;
+
         for (int i = 0; i < 10; i++) {
+            if (beat && switcharoo == 0)
+            {
+                kurzBuf2 = highScore[i, 1];
+                pointBuf2 = highScore[i, 2];
+                highScore[i, 1] = kurzBuf1;
+                highScore[i, 2] = pointBuf1;
+                switcharoo = 1;
+            }
+            else if (beat && switcharoo == 1) {
+                kurzBuf1 = highScore[i, 1];
+                pointBuf1 = highScore[i, 2];
+                highScore[i, 1] = kurzBuf2;
+                highScore[i, 2] = pointBuf2;
+                switcharoo = 0;
+            }
+            if (curPoints > Int32.Parse(highScore[i, 2])) {
+                //Anzeige fenster zur eingabe fehlt
+                Debug.Log("drin");
+                kurzBuf1 = highScore[i, 1];
+                pointBuf1 = highScore[i, 2];
+                highScore[i, 1] = "blah";
+                highScore[i, 2] = curPoints+"";
+                beat = true;
+                curPoints = 0;
+            }
             scoreText[i].text = highScore[i, 1] + " " + highScore[i, 2];
         }
-
+        beat = false;
 	}
 	
 	// Update is called once per frame
