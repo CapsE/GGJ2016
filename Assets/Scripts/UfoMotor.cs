@@ -78,10 +78,6 @@ public class UfoMotor : MonoBehaviour {
     }
 
     void OnCollisionEnter(Collision collision) {
-        if (collision.collider.gameObject.GetComponent<CowMotor>()) {
-            Destroy(collision.collider.gameObject);
-            return;
-        }
 
         if (collision.impulse.magnitude > 1) {
             mainCam.transform.parent = null;

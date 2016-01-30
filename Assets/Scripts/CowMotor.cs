@@ -7,6 +7,9 @@ using System.Collections;
 [RequireComponent(typeof(CharacterController))]
 public class CowMotor : MonoBehaviour
 {
+    public delegate void AbductedEventHandler(GameObject cow);
+    public static event AbductedEventHandler AbductedEvent;
+
     public float speed = 5;
     public float directionChangeInterval = 1;
     public float maxHeadingChange = 30;
@@ -38,7 +41,7 @@ public class CowMotor : MonoBehaviour
         }
 
         if (abducting) {
-            transform.position += Vector3.up * abductSpeed;
+            transform.position += Vector3.up * Time.deltaTime * abductSpeed;
         }
         
     }
@@ -69,10 +72,12 @@ public class CowMotor : MonoBehaviour
 
     public void Abduct(Transform beam) {
         Debug.Log("Abducting Cow");
+        CowMotor.AbductedEvent(gameObject);
         moving = false;
         abducting = true;
         transform.parent = beam;
         gameObject.GetComponent<BoxCollider>().isTrigger = true;
+        
     }
 
     void OnTriggerEnter(Collider collider) {
