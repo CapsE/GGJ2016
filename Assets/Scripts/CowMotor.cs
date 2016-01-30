@@ -42,7 +42,7 @@ public class CowMotor : MonoBehaviour
         }
 
         if (abducting) {
-            transform.position += (beam.position - transform.position) * abductSpeed * Time.deltaTime;
+            transform.position += ((beam.position + Vector3.up * 10) - transform.position) * abductSpeed * Time.deltaTime;
         }
         
     }
