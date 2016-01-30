@@ -89,11 +89,14 @@ public class UfoMotor : MonoBehaviour {
         if (grow && beam.transform.localScale.y < targetScale)
         {
             beam.transform.localScale += growSpeed;
-            
-        }
-        else if(beam.transform.localScale.y > 0){
-            beam.transform.localScale -= growSpeed;
 
+        }
+        else if (beam.transform.localScale.y > growSpeed.y)
+        {
+            beam.transform.localScale -= growSpeed;
+        }
+        else {
+            beam.transform.localScale = new Vector3(beam.transform.localScale.x,0,beam.transform.localScale.z);
         }
     }
 
