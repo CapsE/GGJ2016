@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class UfoMotor : MonoBehaviour {
+public class UfoMotor : MonoBehaviour
+{
 
     public float upForce = 9.81f;
     public float upMax = 15.81f;
@@ -24,58 +25,80 @@ public class UfoMotor : MonoBehaviour {
 
 
     public float targetScale = 2.5f;
-    public Vector3 growSpeed = new Vector3(0,0.0001f,0);
+    public Vector3 growSpeed = new Vector3(0, 0.0001f, 0);
     bool grow = false;
-
+    private bool beamCD = false;
+    private bool cdStarted = false;
     // Use this for initialization
-    void Start() {
+    void Start()
+    {
         rb = gameObject.GetComponent<Rigidbody>();
         currentForce = upForce + bonusGravity;
 
     }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         rb.AddForce(transform.up * currentForce);
         rb.AddForce(-1 * Vector3.up * bonusGravity);
     }
 
-    void Update() {
+    void Update()
+    {
         float h = mouseSpeed * Input.GetAxis("Mouse X");
         float v = mouseSpeed * Input.GetAxis("Mouse Y");
         transform.Rotate(Vector3.forward, -h);
         transform.Rotate(Vector3.left, -v);
 
-        if (Input.GetKey(KeyCode.W)) {
+        if (Input.GetKey(KeyCode.W))
+        {
             currentForce = upMax;
         }
 
-        if (Input.GetKey(KeyCode.S)) {
+        if (Input.GetKey(KeyCode.S))
+        {
             currentForce = upMin;
         }
 
-        if (!Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W)) {
+        if (!Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
+        {
             currentForce = upForce + bonusGravity;
         }
 
-        if (Input.GetKey(KeyCode.A)) {
+        if (Input.GetKey(KeyCode.A))
+        {
             transform.Rotate(transform.up, -turnSpeed);
         }
 
-        if (Input.GetKey(KeyCode.D)) {
+        if (Input.GetKey(KeyCode.D))
+        {
             transform.Rotate(transform.up, turnSpeed);
         }
 
-        if (Input.GetMouseButtonDown(0)) {
-            beam.SetActive(true);
-            //beamCam.SetActive(true);
-            //mainCam.SetActive(false);
-            //mainCam.GetComponent<CameraSwitch>().Beam();
-            grow = true;
-            beam.GetComponent<AudioSource>().Play();
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (!beamCD)
+            {
+                beam.SetActive(true);
+                //beamCam.SetActive(true);
+                //mainCam.SetActive(false);
+                //mainCam.GetComponent<CameraSwitch>().Beam();
+                grow = true;
+                beam.GetComponent<AudioSource>().Play();
+                StartCoroutine(beamDisable());
+            }
+            else
+            {
+                if (!cdStarted)
+                {
+                    cdStarted = true;
+                    StartCoroutine(cooldown());
+                }
+            }
         }
-        if (Input.GetMouseButtonUp(0)) {
+        if (Input.GetMouseButtonUp(0))
+        {
             grow = false;
-            beam.GetComponent<AudioSource>().Stop();
             //mainCam.GetComponent<CameraSwitch>().Normal();
             StartCoroutine(retractBeam());
             //mainCam.SetActive(true);
@@ -83,7 +106,8 @@ public class UfoMotor : MonoBehaviour {
         }
 
         float a = transform.rotation.eulerAngles.z;
-        if (a > 180) {
+        if (a > 180)
+        {
             a -= 360;
         }
         transform.Rotate(transform.up, -1 * (a * turnTiltFactor));
@@ -98,16 +122,20 @@ public class UfoMotor : MonoBehaviour {
         {
             beam.transform.localScale -= growSpeed;
         }
-        else {
-            beam.transform.localScale = new Vector3(beam.transform.localScale.x,0,beam.transform.localScale.z);
+        else
+        {
+            beam.transform.localScale = new Vector3(beam.transform.localScale.x, 0, beam.transform.localScale.z);
         }
     }
 
-    void OnCollisionEnter(Collision collision) {
-        if(collision.gameObject.tag == "Cow") {
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Cow")
+        {
             return;
         }
-        if (collision.impulse.magnitude > crashSpeed) {
+        if (collision.impulse.magnitude > crashSpeed)
+        {
             mainCam.transform.parent = null;
             mainCam.SetActive(true);
             Instantiate(explosion, transform.position, Quaternion.identity);
@@ -116,12 +144,12 @@ public class UfoMotor : MonoBehaviour {
         }
     }
 
-      IEnumerator ChangeScene()
-      {
+    IEnumerator ChangeScene()
+    {
         yield return new WaitForSeconds(2);
         Destroy(gameObject);
         SceneManager.LoadScene(2);
-      }
+    }
 
     void Grow()
     {
@@ -131,8 +159,21 @@ public class UfoMotor : MonoBehaviour {
     IEnumerator retractBeam()
     {
         yield return new WaitForSeconds(1);
+        beam.GetComponent<AudioSource>().Stop();
         beam.SetActive(false);
+
     }
-
-
+    IEnumerator beamDisable()
+    {
+        yield return new WaitForSeconds(3);
+        beamCD = true;
+        grow = false;
+        StartCoroutine(retractBeam());
+    }
+    IEnumerator cooldown()
+    {
+        yield return new WaitForSeconds(2);
+        beamCD = false;
+        cdStarted = false;
+    }
 }
