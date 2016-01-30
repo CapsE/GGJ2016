@@ -15,6 +15,9 @@ public class HighScore : MonoBehaviour
     public Text[] scoreText;
     public bool beat = false;
     public InputField playerInput;
+    public Canvas canvasScore;
+    public Canvas canvasNew;
+    public Text newScore;
 
     // Use this for initialization
     void Start()
@@ -57,14 +60,15 @@ public class HighScore : MonoBehaviour
             if (curPoints > Int32.Parse(highScore[i, 2]))
             {
                 Debug.Log("ddrin");
-                playerInput.gameObject.SetActive(true);
-
+                canvasNew.gameObject.SetActive(true);
+                newScore.text = curPoints+"";
                 beat = true;
             }
 
         }
         if (!beat)
         {
+            canvasScore.gameObject.SetActive(true);
             for (int i = 0; i < 10; i++)
             {
                 scoreText[i].text = highScore[i, 1] + " " + highScore[i, 2];
@@ -89,6 +93,7 @@ public class HighScore : MonoBehaviour
 
     public void NewHighScore()
     {
+
         //Write Score
         string kurzBuf1 = "";
         string pointBuf1 = "";
@@ -131,8 +136,8 @@ public class HighScore : MonoBehaviour
             scoreText[i].text = highScore[i, 1] + " " + highScore[i, 2];
         }
         beat = false;
-        playerInput.gameObject.SetActive(false);
-
+        canvasNew.gameObject.SetActive(false);
+        canvasScore.gameObject.SetActive(true);
         //write data to file
         string[] lines = { "1:" + highScore[0, 1] + ":" + highScore[0, 2] + ":", "2:" + highScore[1, 1] + ":" + highScore[1, 2] + ":", "3:" + highScore[2, 1] + ":" + highScore[2, 2] + ":", "4:" + highScore[3, 1] + ":" + highScore[3, 2] + ":", "5:" + highScore[4, 1] + ":" + highScore[4, 2] + ":", "6:" + highScore[5, 1] + ":" + highScore[5, 2] + ":", "7:" + highScore[6, 1] + ":" + highScore[6, 2] + ":", "8:" + highScore[7, 1] + ":" + highScore[7, 2] + ":", "9:" + highScore[8, 1] + ":" + highScore[8, 2] + ":", "10:" + highScore[9, 1] + ":" + highScore[9, 2] };
         System.IO.File.WriteAllLines(path, lines);
