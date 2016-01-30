@@ -18,7 +18,6 @@ public class UfoMotor : MonoBehaviour {
     public GameObject beam;
 
     public GameObject mainCam;
-    public GameObject beamCam;
 
     private Rigidbody rb;
     private float currentForce;
@@ -70,10 +69,12 @@ public class UfoMotor : MonoBehaviour {
             //beam.SetActive(true);
             //beamCam.SetActive(true);
             //mainCam.SetActive(false);
+            //mainCam.GetComponent<CameraSwitch>().Beam();
             grow = true;
         }
         if (Input.GetMouseButtonUp(0)) {
             grow = false;
+            //mainCam.GetComponent<CameraSwitch>().Normal();
             //beam.SetActive(false);
             //mainCam.SetActive(true);
             //beamCam.SetActive(false);
@@ -115,7 +116,7 @@ public class UfoMotor : MonoBehaviour {
 
       IEnumerator ChangeScene()
       {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         Destroy(gameObject);
         SceneManager.LoadScene(2);
       }
