@@ -1,27 +1,15 @@
 fileFormatVersion: 2
-guid: 92035922a4ed45a418c1788d2bfe7729
-timeCreated: 1454101265
+guid: 6b3079454a0f0c14bbe36d0d5719ca01
+timeCreated: 1454144333
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: pCube1
-    100004: pCube2
-    100006: pCube3
-    100008: pCube4
-    100010: transform1
-    100012: transform2
     400000: //RootNode
-    400002: pCube1
-    400004: pCube2
-    400006: pCube3
-    400008: pCube4
-    400010: transform1
-    400012: transform2
-    2300000: pCube4
-    3300000: pCube4
-    4300000: pCube4
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: ufo_lowpoly
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -47,7 +35,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 50
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1

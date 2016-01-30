@@ -61,13 +61,13 @@ public class UfoMotor : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0)) {
             beam.SetActive(true);
-            beamCam.SetActive(true);
-            mainCam.SetActive(false);
+            //beamCam.SetActive(true);
+            //mainCam.SetActive(false);
         }
         if (Input.GetMouseButtonUp(0)) {
             beam.SetActive(false);
-            mainCam.SetActive(true);
-            beamCam.SetActive(false);
+            //mainCam.SetActive(true);
+            //beamCam.SetActive(false);
         }
 
         float a = transform.rotation.eulerAngles.z;
