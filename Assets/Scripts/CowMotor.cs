@@ -73,14 +73,19 @@ public class CowMotor : MonoBehaviour
     public void Abduct(Transform beam) {
         Debug.Log("Abducting Cow");
         CowMotor.AbductedEvent(gameObject);
+        gameObject.GetComponent<BoxCollider>().isTrigger = true;
         moving = false;
         abducting = true;
         transform.parent = beam;
-        gameObject.GetComponent<BoxCollider>().isTrigger = true;
+        transform.localPosition = new Vector3(0, transform.localPosition.y, 0);
+        
         
     }
 
     void OnTriggerEnter(Collider collider) {
-        Destroy(gameObject);
+        if(collider.gameObject.tag == "UFO") {
+            Destroy(gameObject);
+        }
+        
     }
 }

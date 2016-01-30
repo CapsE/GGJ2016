@@ -10,6 +10,8 @@ public class UfoMotor : MonoBehaviour {
     public float turnSpeed = 0.75f;
     public float turnTiltFactor = 0.1f;
 
+    public float crashSpeed = 2;
+
     public float bonusGravity = 1;
     public GameObject explosion;
     public GameObject beam;
@@ -79,7 +81,7 @@ public class UfoMotor : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision) {
 
-        if (collision.impulse.magnitude > 1) {
+        if (collision.impulse.magnitude > crashSpeed) {
             mainCam.transform.parent = null;
             mainCam.SetActive(true);
             Destroy(gameObject);
