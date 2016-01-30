@@ -14,6 +14,7 @@ public class CowMotor : MonoBehaviour
     public float directionChangeInterval = 1;
     public float maxHeadingChange = 30;
     public float abductSpeed = 0.25f;
+    public GameObject moo;
 
     CharacterController controller;
     float heading;
@@ -42,7 +43,7 @@ public class CowMotor : MonoBehaviour
         }
 
         if (abducting) {
-            transform.position += ((beam.position + Vector3.up * 10) - transform.position) * abductSpeed * Time.deltaTime;
+            transform.position += ((beam.position + Vector3.up * (beam.localScale.y / 2)) - transform.position) * abductSpeed * Time.deltaTime;
         }
         
     }
@@ -74,6 +75,7 @@ public class CowMotor : MonoBehaviour
     public void Abduct(Transform beam) {
         if (!abducting) {
             Debug.Log("Abducting Cow");
+            Instantiate(moo, transform.position, Quaternion.identity);
             if (CowMotor.AbductedEvent != null) {
                 CowMotor.AbductedEvent(gameObject);
             }
