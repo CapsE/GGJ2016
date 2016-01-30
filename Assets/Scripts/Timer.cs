@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour {
     public float timeLeft = 120.0f;
@@ -17,7 +18,7 @@ public class Timer : MonoBehaviour {
         text.text = "Time Left: " + Mathf.Round(timeLeft);
         if (timeLeft < 0)
         {
-            //Application.LoadLevel("gameOver");
+            SceneManager.LoadScene(2);
             text.text = "Game Over";
         }
     }
