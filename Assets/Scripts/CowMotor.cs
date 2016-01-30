@@ -44,7 +44,7 @@ public class CowMotor : MonoBehaviour
 
         if (abducting) {
             Vector3 target = (beam.position + Vector3.up * (beam.localScale.y / 2));
-            float step = abductSpeed * Time.deltaTime * Mathf.Max(Vector3.Distance(transform.position, target), 1);
+            float step = abductSpeed * Time.deltaTime * Mathf.Max(Vector3.Distance(transform.position, target), 3);
             transform.position = Vector3.MoveTowards(transform.position, target, step);
         }
         
