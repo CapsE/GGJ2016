@@ -80,7 +80,9 @@ public class UfoMotor : MonoBehaviour {
     }
 
     void OnCollisionEnter(Collision collision) {
-
+        if(collision.gameObject.tag == "Cow") {
+            return;
+        }
         if (collision.impulse.magnitude > crashSpeed) {
             mainCam.transform.parent = null;
             mainCam.SetActive(true);

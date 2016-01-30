@@ -20,6 +20,7 @@ public class CowMotor : MonoBehaviour
     Vector3 targetRotation;
     private bool moving = true;
     private bool abducting = false;
+    private Transform beam;
 
     void Awake()
     {
@@ -41,7 +42,7 @@ public class CowMotor : MonoBehaviour
         }
 
         if (abducting) {
-            transform.position += Vector3.up * Time.deltaTime * abductSpeed;
+            transform.position += (beam.position - transform.position) * abductSpeed * Time.deltaTime;
         }
         
     }
@@ -73,12 +74,15 @@ public class CowMotor : MonoBehaviour
     public void Abduct(Transform beam) {
         if (!abducting) {
             Debug.Log("Abducting Cow");
-            CowMotor.AbductedEvent(gameObject);
+            if (CowMotor.AbductedEvent != null) {
+                CowMotor.AbductedEvent(gameObject);
+            }
+            
             gameObject.GetComponent<BoxCollider>().isTrigger = true;
+            gameObject.GetComponent<CharacterController>().enabled = false;
             moving = false;
             abducting = true;
-            transform.parent = beam;
-            transform.localPosition = new Vector3(0, transform.localPosition.y, 0);
+            this.beam = beam;
         }
 
         
