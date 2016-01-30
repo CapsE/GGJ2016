@@ -27,8 +27,8 @@ public class UfoMotor : MonoBehaviour
     public float targetScale = 2.5f;
     public Vector3 growSpeed = new Vector3(0, 0.0001f, 0);
     bool grow = false;
-    private bool beamCD = false;
-    private bool cdStarted = false;
+    
+
     // Use this for initialization
     void Start()
     {
@@ -77,24 +77,14 @@ public class UfoMotor : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (!beamCD)
-            {
+            
                 beam.SetActive(true);
                 //beamCam.SetActive(true);
                 //mainCam.SetActive(false);
                 //mainCam.GetComponent<CameraSwitch>().Beam();
                 grow = true;
-                beam.GetComponent<AudioSource>().Play();
-                StartCoroutine(beamDisable());
-            }
-            else
-            {
-                if (!cdStarted)
-                {
-                    cdStarted = true;
-                    StartCoroutine(cooldown());
-                }
-            }
+                beam.GetComponent<AudioSource>().Play();            
+            
         }
         if (Input.GetMouseButtonUp(0))
         {
@@ -163,17 +153,5 @@ public class UfoMotor : MonoBehaviour
         beam.SetActive(false);
 
     }
-    IEnumerator beamDisable()
-    {
-        yield return new WaitForSeconds(3);
-        beamCD = true;
-        grow = false;
-        StartCoroutine(retractBeam());
-    }
-    IEnumerator cooldown()
-    {
-        yield return new WaitForSeconds(2);
-        beamCD = false;
-        cdStarted = false;
-    }
+    
 }
