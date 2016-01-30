@@ -43,7 +43,9 @@ public class CowMotor : MonoBehaviour
         }
 
         if (abducting) {
-            transform.position += ((beam.position + Vector3.up * (beam.localScale.y / 2)) - transform.position) * abductSpeed * Time.deltaTime;
+            Vector3 target = (beam.position + Vector3.up * (beam.localScale.y / 2));
+            float step = abductSpeed * Time.deltaTime * Mathf.Max(Vector3.Distance(transform.position, target), 1);
+            transform.position = Vector3.MoveTowards(transform.position, target, step);
         }
         
     }
