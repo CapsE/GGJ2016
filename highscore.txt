@@ -1,10 +1,10 @@
 1:asd:47:
 2:Lars:22:
 3:Lars:22:
-4:Wow:16:
-5:yeah high score:10:
-6:Cedric:7:
-7:Yay:4:
-8:abc:3:
-9:jeah:2:
-10:Lars:2
+4:Lars:17:
+5:Wow:16:
+6:yeah high score:10:
+7:Cedric:7:
+8:Yay:4:
+9:abc:3:
+10:jeah:2

@@ -23,6 +23,9 @@ public class UfoMotor : MonoBehaviour
     private Rigidbody rb;
     private float currentForce;
 
+    private float runningTimer = 0;
+    private float cooldownTimer = 0;
+
 
     public float targetScale = 2.5f;
     public Vector3 growSpeed = new Vector3(0, 0.0001f, 0);
@@ -75,7 +78,7 @@ public class UfoMotor : MonoBehaviour
             transform.Rotate(transform.up, turnSpeed);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && cooldownTimer <= 0)
         {
             
                 beam.SetActive(true);
@@ -115,6 +118,21 @@ public class UfoMotor : MonoBehaviour
         else
         {
             beam.transform.localScale = new Vector3(beam.transform.localScale.x, 0, beam.transform.localScale.z);
+        }
+
+        if (grow) {
+            runningTimer += Time.deltaTime;
+            if(runningTimer > 6) {
+                cooldownTimer = 6;
+                grow = false;
+                StartCoroutine(retractBeam());
+                runningTimer = 0;
+            }
+        } else if(runningTimer >= 0){
+            runningTimer -= Time.deltaTime;
+        }
+        if(cooldownTimer > 0) {
+            cooldownTimer -= Time.deltaTime;
         }
     }
 
