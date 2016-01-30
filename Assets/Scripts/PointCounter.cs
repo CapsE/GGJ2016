@@ -20,6 +20,7 @@ public class PointCounter : MonoBehaviour {
 
     void madePoint(GameObject cow)
     {
+        CowCreator.cowCount--;
         points++;
         pointText.text = "Points: "+points;
         Debug.Log("Made a point");
