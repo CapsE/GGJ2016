@@ -137,7 +137,8 @@ public class HighScore : MonoBehaviour
                 beat = true;
                 curPoints = 0;
             }
-            scoreText[i].text = highScore[i, 1] + " " + highScore[i, 2];
+            scoreText[i].text = highScore[i, 1];
+            scoreText2[i].text = highScore[i, 2];
         }
         beat = false;
         canvasNew.gameObject.SetActive(false);
