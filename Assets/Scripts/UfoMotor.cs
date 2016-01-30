@@ -116,7 +116,7 @@ public class UfoMotor : MonoBehaviour {
 
       IEnumerator ChangeScene()
       {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         Destroy(gameObject);
         SceneManager.LoadScene(2);
       }
