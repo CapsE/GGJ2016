@@ -4,7 +4,7 @@ using System.Collections;
 public class CowCreator : MonoBehaviour {
 
     public GameObject cow;
-    public static int cowCount = 0;
+    public static int cowCount = 20;
     public int cowMax = 20;
 
 	// Use this for initialization
