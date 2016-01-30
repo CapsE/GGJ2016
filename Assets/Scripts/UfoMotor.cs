@@ -24,6 +24,10 @@ public class UfoMotor : MonoBehaviour {
     private float currentForce;
 
 
+    public float targetScale = 2.5f;
+    public Vector3 growSpeed = new Vector3(0,0.0001f,0);
+    bool grow = false;
+
     // Use this for initialization
     void Start() {
         rb = gameObject.GetComponent<Rigidbody>();
@@ -63,12 +67,14 @@ public class UfoMotor : MonoBehaviour {
         }
 
         if (Input.GetMouseButtonDown(0)) {
-            beam.SetActive(true);
+            //beam.SetActive(true);
             //beamCam.SetActive(true);
             //mainCam.SetActive(false);
+            grow = true;
         }
         if (Input.GetMouseButtonUp(0)) {
-            beam.SetActive(false);
+            grow = false;
+            //beam.SetActive(false);
             //mainCam.SetActive(true);
             //beamCam.SetActive(false);
         }
@@ -78,6 +84,17 @@ public class UfoMotor : MonoBehaviour {
             a -= 360;
         }
         transform.Rotate(transform.up, -1 * (a * turnTiltFactor));
+
+
+        if (grow && beam.transform.localScale.y < targetScale)
+        {
+            beam.transform.localScale += growSpeed;
+            
+        }
+        else if(beam.transform.localScale.y > 0){
+            beam.transform.localScale -= growSpeed;
+
+        }
     }
 
     void OnCollisionEnter(Collision collision) {
@@ -98,7 +115,12 @@ public class UfoMotor : MonoBehaviour {
         yield return new WaitForSeconds(1);
         Destroy(gameObject);
         SceneManager.LoadScene(2);
-      } 
+      }
 
-  
+    void Grow()
+    {
+        grow = true;
+    }
+    
+
 }

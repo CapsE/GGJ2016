@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 public class HighScore : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class HighScore : MonoBehaviour
     void Start()
     {
         curPoints = PointCounter.points;
+        PointCounter.points = 0;
         if (!File.Exists(path))
         {
             string[] lines = { "1:abc:0:", "2:abc:0:", "3:abc:0:", "4:abc:0:", "5:abc:0:", "6:abc:0:", "7:abc:0:", "8:abc:0:", "9:abc:0:", "10:abc:0" };
@@ -141,5 +143,10 @@ public class HighScore : MonoBehaviour
         //write data to file
         string[] lines = { "1:" + highScore[0, 1] + ":" + highScore[0, 2] + ":", "2:" + highScore[1, 1] + ":" + highScore[1, 2] + ":", "3:" + highScore[2, 1] + ":" + highScore[2, 2] + ":", "4:" + highScore[3, 1] + ":" + highScore[3, 2] + ":", "5:" + highScore[4, 1] + ":" + highScore[4, 2] + ":", "6:" + highScore[5, 1] + ":" + highScore[5, 2] + ":", "7:" + highScore[6, 1] + ":" + highScore[6, 2] + ":", "8:" + highScore[7, 1] + ":" + highScore[7, 2] + ":", "9:" + highScore[8, 1] + ":" + highScore[8, 2] + ":", "10:" + highScore[9, 1] + ":" + highScore[9, 2] };
         System.IO.File.WriteAllLines(path, lines);
+    }
+
+    public void NewGame() {
+        canvasScore.gameObject.SetActive(false);
+        SceneManager.LoadScene(1);
     }
 }
