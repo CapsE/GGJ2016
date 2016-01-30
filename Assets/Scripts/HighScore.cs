@@ -63,7 +63,7 @@ public class HighScore : MonoBehaviour
             {
                 Debug.Log("ddrin");
                 canvasNew.gameObject.SetActive(true);
-                newScore.text = curPoints+"";
+                newScore.text = curPoints + "";
                 beat = true;
             }
 
@@ -73,7 +73,12 @@ public class HighScore : MonoBehaviour
             canvasScore.gameObject.SetActive(true);
             for (int i = 0; i < 10; i++)
             {
-                scoreText[i].text = highScore[i, 1] + " " + highScore[i, 2];
+                int spaces = 20;
+                string empty = "";
+                for (int x = highScore[i, 1].Length; x < spaces; x++) {
+                    empty += " ";
+                }
+                scoreText[i].text = highScore[i, 1] + empty + highScore[i, 2];
             }
         }
         beat = false;
@@ -135,7 +140,12 @@ public class HighScore : MonoBehaviour
                 beat = true;
                 curPoints = 0;
             }
-            scoreText[i].text = highScore[i, 1] + " " + highScore[i, 2];
+            int spaces = 20;
+            string empty = "";
+            for(int x = highScore[i, 1].Length; x < spaces; x++) {
+                empty += " ";
+            }
+            scoreText[i].text = highScore[i, 1] + empty + highScore[i, 2];
         }
         beat = false;
         canvasNew.gameObject.SetActive(false);
