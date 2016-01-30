@@ -14,6 +14,7 @@ public class HighScore : MonoBehaviour
     //[Platz-1, 1:Kürzel 2: Score]
     public string[,] highScore = new string[10, 3];
     public Text[] scoreText;
+    public Text[] scoreText2;
     public bool beat = false;
     public InputField playerInput;
     public Canvas canvasScore;
@@ -73,7 +74,8 @@ public class HighScore : MonoBehaviour
             canvasScore.gameObject.SetActive(true);
             for (int i = 0; i < 10; i++)
             {
-                scoreText[i].text = highScore[i, 1] + " " + highScore[i, 2];
+                scoreText[i].text = highScore[i, 1];
+                scoreText2[i].text = highScore[i, 2];
             }
         }
         beat = false;
