@@ -66,7 +66,7 @@ public class UfoMotor : MonoBehaviour {
         }
 
         if (Input.GetMouseButtonDown(0)) {
-            //beam.SetActive(true);
+            beam.SetActive(true);
             //beamCam.SetActive(true);
             //mainCam.SetActive(false);
             //mainCam.GetComponent<CameraSwitch>().Beam();
@@ -77,7 +77,7 @@ public class UfoMotor : MonoBehaviour {
             grow = false;
             beam.GetComponent<AudioSource>().Stop();
             //mainCam.GetComponent<CameraSwitch>().Normal();
-            //beam.SetActive(false);
+            beam.SetActive(false);
             //mainCam.SetActive(true);
             //beamCam.SetActive(false);
         }
@@ -88,19 +88,6 @@ public class UfoMotor : MonoBehaviour {
         }
         transform.Rotate(transform.up, -1 * (a * turnTiltFactor));
 
-
-        if (grow && beam.transform.localScale.y < targetScale)
-        {
-            beam.transform.localScale += growSpeed;
-
-        }
-        else if (beam.transform.localScale.y > growSpeed.y)
-        {
-            beam.transform.localScale -= growSpeed * 1.5f;
-        }
-        else {
-            beam.transform.localScale = new Vector3(beam.transform.localScale.x,0,beam.transform.localScale.z);
-        }
     }
 
     void OnCollisionEnter(Collision collision) {
