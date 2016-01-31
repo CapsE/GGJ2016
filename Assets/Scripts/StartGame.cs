@@ -17,5 +17,6 @@ public class StartGame : MonoBehaviour {
 
     public void StartButton() {
         SceneManager.LoadScene(1);
+        Cursor.visible = false;
     }
 }

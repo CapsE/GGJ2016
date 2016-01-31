@@ -76,14 +76,12 @@ public class CowMotor : MonoBehaviour
 
     public void Abduct(Transform beam) {
         if (!abducting) {
-            Debug.Log("Abducting Cow");
+            PointCounter.points++;
+            CowCreator.cowCount--;
             Instantiate(moo, transform.position, Quaternion.identity);
-            Debug.Log(CowMotor.AbductedEvent != null);
             if (CowMotor.AbductedEvent != null) {
                 CowMotor.AbductedEvent(gameObject);
-            } else {
                 PointCounter.getInstance();
-                CowMotor.AbductedEvent(gameObject);
             }
             
             gameObject.GetComponent<BoxCollider>().isTrigger = true;

@@ -29,6 +29,8 @@ public class UfoMotor : MonoBehaviour
 
     public float targetScale = 2.5f;
     public Vector3 growSpeed = new Vector3(0, 0.0001f, 0);
+    public Vector3 shrinkSpeed = new Vector3(0, 0.1f, 0);
+
     bool grow = false;
     
 
@@ -97,6 +99,9 @@ public class UfoMotor : MonoBehaviour
             //mainCam.SetActive(true);
             //beamCam.SetActive(false);
         }
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            Application.Quit();
+        }
 
         float a = transform.rotation.eulerAngles.z;
         if (a > 180)
@@ -113,7 +118,7 @@ public class UfoMotor : MonoBehaviour
         }
         else if (beam.transform.localScale.y > growSpeed.y)
         {
-            beam.transform.localScale -= growSpeed;
+            beam.transform.localScale -= shrinkSpeed;
         }
         else
         {
@@ -122,8 +127,8 @@ public class UfoMotor : MonoBehaviour
 
         if (grow) {
             runningTimer += Time.deltaTime;
-            if(runningTimer > 6) {
-                cooldownTimer = 6;
+            if(runningTimer > 5) {
+                cooldownTimer = 3;
                 grow = false;
                 StartCoroutine(retractBeam());
                 runningTimer = 0;
@@ -148,7 +153,6 @@ public class UfoMotor : MonoBehaviour
             mainCam.SetActive(true);
             Instantiate(explosion, transform.position, Quaternion.identity);
             StartCoroutine(ChangeScene());
-            Invoke("ChangeScene", 2.0f);
         }
     }
 
@@ -166,7 +170,7 @@ public class UfoMotor : MonoBehaviour
 
     IEnumerator retractBeam()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.2f);
         beam.GetComponent<AudioSource>().Stop();
         beam.SetActive(false);
 

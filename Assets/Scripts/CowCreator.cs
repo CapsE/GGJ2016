@@ -4,7 +4,7 @@ using System.Collections;
 public class CowCreator : MonoBehaviour {
 
     public GameObject cow;
-    public static int cowCount = 0;
+    public static int cowCount = 23;
     public int cowMax = 20;
 
 	// Use this for initialization
@@ -16,7 +16,8 @@ public class CowCreator : MonoBehaviour {
 	void Update () {
         if (CowCreator.cowCount < cowMax) {
             cowCount++;
-            Instantiate(cow, new Vector3(218, 0, 233), Quaternion.identity);
+            Vector3 position = new Vector3(Random.Range(120.0F, 390.0F), 0.5f, Random.Range(93,400.0F));
+            Instantiate(cow, position, Quaternion.identity);
         }
 	
 	}

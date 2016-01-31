@@ -24,6 +24,8 @@ public class HighScore : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Cursor.visible = true;
+
         curPoints = PointCounter.points;
         PointCounter.points = 0;
         if (!File.Exists(path))
@@ -62,7 +64,6 @@ public class HighScore : MonoBehaviour
         {
             if (curPoints > Int32.Parse(highScore[i, 2]))
             {
-                Debug.Log("ddrin");
                 canvasNew.gameObject.SetActive(true);
                 newScore.text = curPoints+"";
                 beat = true;
@@ -123,13 +124,10 @@ public class HighScore : MonoBehaviour
                 highScore[i, 2] = pointBuf2;
                 switcharoo = 0;
             }
-            Debug.Log("curPoints: " + curPoints);
-            Debug.Log("bl " + Int32.Parse(highScore[i, 2]));
-            Debug.Log(curPoints > Int32.Parse(highScore[i, 2]));
+            
             if (curPoints > Int32.Parse(highScore[i, 2]))
             {
-                //Anzeige fenster zur eingabe fehlt
-                Debug.Log("drin");
+                
                 kurzBuf1 = highScore[i, 1];
                 pointBuf1 = highScore[i, 2];
                 highScore[i, 1] = playerInput.text;
@@ -151,5 +149,7 @@ public class HighScore : MonoBehaviour
     public void NewGame() {
         canvasScore.gameObject.SetActive(false);
         SceneManager.LoadScene(1);
+        Cursor.visible = false;
+
     }
 }
