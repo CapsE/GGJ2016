@@ -19,6 +19,8 @@ public class UfoMotor : MonoBehaviour
     public GameObject beam;
 
     public GameObject mainCam;
+    public Color beamColor;
+    public Light spotlight;
 
     private Rigidbody rb;
     private float currentForce;
@@ -127,7 +129,15 @@ public class UfoMotor : MonoBehaviour
 
         if (grow) {
             runningTimer += Time.deltaTime;
-            if(runningTimer > 5) {
+            float percent = runningTimer / 5;
+            float percentB = 1 - percent;
+            Color c = Color.red;
+            Color newColor = new Color(percent * c.r + percentB * beamColor.r, percent * c.g + percentB * beamColor.g, percent * c.b + percentB * beamColor.b, beamColor.a);
+
+            beam.GetComponent<Renderer>().material.color = newColor;
+            beam.GetComponent<Renderer>().material.SetColor("_EmissionColor", newColor);
+            spotlight.color = newColor;
+            if (runningTimer > 5) {
                 cooldownTimer = 3;
                 grow = false;
                 StartCoroutine(retractBeam());
@@ -138,6 +148,8 @@ public class UfoMotor : MonoBehaviour
         }
         if(cooldownTimer > 0) {
             cooldownTimer -= Time.deltaTime;
+        } else if(grow == false) {
+            spotlight.color = beamColor;
         }
     }
 
@@ -173,7 +185,7 @@ public class UfoMotor : MonoBehaviour
         yield return new WaitForSeconds(1.2f);
         beam.GetComponent<AudioSource>().Stop();
         beam.SetActive(false);
-
+        beam.GetComponent<Renderer>().material.color = beamColor;
     }
     
 }

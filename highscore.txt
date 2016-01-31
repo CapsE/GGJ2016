@@ -2,9 +2,9 @@
 2:Lars:22:
 3:Lars:22:
 4:juhu:20:
-5:Lars:17:
-6:Wow:16:
-7:Cedric:12:
-8:Lars:12:
-9:yeah high score:10:
-10:Lars:8
+5:Lars:20:
+6:Lars:17:
+7:Wow:16:
+8:Lars:13:
+9:Lars:13:
+10:Cedric:12
