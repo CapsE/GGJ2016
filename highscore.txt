@@ -5,6 +5,6 @@
 5:Lars:17:
 6:Wow:16:
 7:Cedric:12:
-8:yeah high score:10:
-9:Lars:8:
-10:Cedric:7
+8:Lars:12:
+9:yeah high score:10:
+10:Lars:8
